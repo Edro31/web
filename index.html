@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Calculadora PHP</title>
+</head>
+<body>
+    <h1>Calculadora PHP</h1>
+    <form id="calculadoraForm">
+        <label for="a">Valor A:</label>
+        <input type="number" id="a" name="a" required>
+        <br>
+        <label for="b">Valor B:</label>
+        <input type="number" id="b" name="b" required>
+        <br>
+        <button type="button" id="calcularBtn">Calcular Suma</button>
+    </form>
+    <p>Resultado: <span id="resultado"></span></p>
+
+    <script>
+        // JavaScript para manejar el envío del formulario y la respuesta
+        document.getElementById('calcularBtn').addEventListener('click', function() {
+            const a = document.getElementById('a').value;
+            const b = document.getElementById('b').value;
+
+            // Realizar una solicitud al servidor PHP
+            fetch('http://192.168.100.7/back.php?a=' + a + '&b=' + b)
+                .then(response => response.json())
+                .then(data => {
+                    // Mostrar el resultado en la página
+                    document.getElementById('resultado').textContent = data.resultado;
+                })
+                .catch(error => {
+                    console.error('Error en la solicitud: ' + error);
+                });
+        });
+    </script>
+</body>
+</html>
